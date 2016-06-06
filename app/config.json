@@ -1,0 +1,18 @@
+{
+  "name": "med-finder",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https:vietpham@bitbucket.org/vietpham/medfinder.git"
+  },
+  "author": "",
+  "license": "ISC"
+}
