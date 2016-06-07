@@ -1,0 +1,24 @@
+{
+  "name": "hello-coder",
+  "description": "",
+  "main": "index.js",
+  "license": "ISC",
+  "moduleType": [
+    "node"
+  ],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "jquery": "^2.2.4",
+    "angular": "^1.5.6",
+    "angular-ui-router": "^0.3.1",
+    "moment": "^2.13.0"
+  }
+}

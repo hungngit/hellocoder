@@ -1,8 +1,8 @@
 {
-  "name": "med-finder",
-  "version": "1.0.0",
+  "name": "hello-coder",
+  "version": "0.0.1",
   "description": "",
-  "main": "app.js",
+  "main": "index.js",
   "directories": {
     "test": "test"
   },
@@ -11,8 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https:vietpham@bitbucket.org/vietpham/medfinder.git"
+    "url": "https://github.com/hungngit/hellocoder.git"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "~1.15.1",
+    "express": "~4.13.4",
+    "lodash": "^4.13.1",
+    "mongoose": "~4.4.20"
+  }
 }
