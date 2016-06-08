@@ -28,8 +28,9 @@ var ArticleSchema = new mongoose.Schema({
             ref: 'User'
         }
     }],
+	AverageVote: Number,
 	Votes: [{
-        Star: int,
+        Star: Number,
         CreatedBy: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User'

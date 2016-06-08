@@ -2,7 +2,7 @@ var GenderModel = require("../models/gender");
 
 function GenderRepository = function(model){
 	/**
-	* Get all brands.
+	* Get all Genders.
 	* @param {function} callback
 	*/
 	this.GetAll = function(callback) {
@@ -11,6 +11,4 @@ function GenderRepository = function(model){
 }
 var genderRepository = new GenderRepository(GenderModel);
 
-module.exports = {
-	GetAll : genderRepository.GetAll
-};
+module.exports = genderRepository;

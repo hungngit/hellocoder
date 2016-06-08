@@ -8,6 +8,10 @@ var UserStatusSchema = new mongoose.Schema({
 	StatusName: {
 		type: String,
 		index: true
+	},
+	IsDeleted: {
+		type: Boolean, 
+		default: false
 	}
 });
 

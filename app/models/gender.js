@@ -8,6 +8,10 @@ var GenderSchema = new mongoose.Schema({
 	GenderName: {
 		type: String,
 		index: true
+	},
+	IsDeleted: {
+		type: Boolean, 
+		default: false
 	}
 });
 
