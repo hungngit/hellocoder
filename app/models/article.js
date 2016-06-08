@@ -45,7 +45,11 @@ var ArticleSchema = new mongoose.Schema({
 	Category: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Category'
-    },	
+    },
+    SeriesId: {
+        type: mongoose.Schema.Types.ObjectId,
+        index: true
+    },
 	ApprovedBy: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
