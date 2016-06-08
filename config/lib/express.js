@@ -8,15 +8,13 @@ var config = require('../config'),
   morgan = require('morgan'),
   logger = require('./logger'),
   bodyParser = require('body-parser'),
-  session = require('express-session'),
-  MongoStore = require('connect-mongo')(session),
   favicon = require('serve-favicon'),
   compress = require('compression'),
   methodOverride = require('method-override'),
-  cookieParser = require('cookie-parser'),
+  //cookieParser = require('cookie-parser'),
   helmet = require('helmet'),
-  flash = require('connect-flash'),
-  consolidate = require('consolidate'),
+  //flash = require('connect-flash'),
+  //consolidate = require('consolidate'),
   path = require('path');
 
 /**
@@ -86,43 +84,21 @@ module.exports.initMiddleware = function (app) {
   app.use(methodOverride());
 
   // Add the cookie parser and flash middleware
-  app.use(cookieParser());
-  app.use(flash());
+  //app.use(cookieParser());
+  //app.use(flash());
 };
 
 /**
  * Configure view engine
  */
-module.exports.initViewEngine = function (app) {
-  // Set swig as the template engine
-  app.engine('server.view.html', consolidate[config.templateEngine]);
+// module.exports.initViewEngine = function (app) {
+//   // Set swig as the template engine
+//   app.engine('server.view.html', consolidate[config.templateEngine]);
 
-  // Set views path and view engine
-  app.set('view engine', 'server.view.html');
-  app.set('views', './');
-};
-
-/**
- * Configure Express session
- */
-module.exports.initSession = function (app, db) {
-  // Express MongoDB session storage
-  app.use(session({
-    saveUninitialized: true,
-    resave: true,
-    secret: config.sessionSecret,
-    cookie: {
-      maxAge: config.sessionCookie.maxAge,
-      httpOnly: config.sessionCookie.httpOnly,
-      secure: config.sessionCookie.secure && config.secure.ssl
-    },
-    key: config.sessionKey,
-    store: new MongoStore({
-      mongooseConnection: db.connection,
-      collection: config.sessionCollection
-    })
-  }));
-};
+//   // Set views path and view engine
+//   app.set('view engine', 'server.view.html');
+//   app.set('views', './');
+// };
 
 /**
  * Invoke modules server configuration
@@ -139,10 +115,10 @@ module.exports.initModulesConfiguration = function (app, db) {
 module.exports.initHelmetHeaders = function (app) {
   // Use helmet to secure Express headers
   var SIX_MONTHS = 15778476000;
-  app.use(helmet.xframe());
+  app.use(helmet.frameguard());
   app.use(helmet.xssFilter());
-  app.use(helmet.nosniff());
-  app.use(helmet.ienoopen());
+  app.use(helmet.noSniff());
+  app.use(helmet.ieNoOpen());
   app.use(helmet.hsts({
     maxAge: SIX_MONTHS,
     includeSubdomains: true,
@@ -205,13 +181,13 @@ module.exports.initErrorRoutes = function (app) {
 /**
  * Configure Socket.io
  */
-module.exports.configureSocketIO = function (app, db) {
-  // Load the Socket.io configuration
-  var server = require('./socket.io')(app, db);
+// module.exports.configureSocketIO = function (app, db) {
+//   // Load the Socket.io configuration
+//   var server = require('./socket.io')(app, db);
 
-  // Return server object
-  return server;
-};
+//   // Return server object
+//   return server;
+// };
 
 /**
  * Initialize the Express application
@@ -227,7 +203,7 @@ module.exports.init = function (db) {
   this.initMiddleware(app);
 
   // Initialize Express view engine
-  this.initViewEngine(app);
+  //this.initViewEngine(app);
   
   // Initialize Helmet security headers
   this.initHelmetHeaders(app);
@@ -236,7 +212,7 @@ module.exports.init = function (db) {
   this.initModulesClientRoutes(app);
 
   // Initialize Express session
-  this.initSession(app, db);
+  //this.initSession(app, db);
 
   // Initialize Modules configuration
   this.initModulesConfiguration(app);
@@ -251,7 +227,7 @@ module.exports.init = function (db) {
   this.initErrorRoutes(app);
 
   // Configure Socket.io
-  app = this.configureSocketIO(app, db);
+  //app = this.configureSocketIO(app, db);
 
   return app;
 };
