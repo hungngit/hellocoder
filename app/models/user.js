@@ -33,13 +33,17 @@ var UserSchema = new mongoose.Schema({
 		type: String,
 		index: true
 	},
-	Hash: {
+	Password: {
 		type: String,
 		default: ''
 	},
 	Salt: {
 		type: String,
 		default: ''
+	},
+	ProfileImageURL: {
+	   type: String,
+	   default: 'modules/users/client/img/profile/default.png'
 	},
 	ResetPasswordKey: {
 		type: String,

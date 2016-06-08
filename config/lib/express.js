@@ -11,7 +11,9 @@ var config = require('../config'),
   favicon = require('serve-favicon'),
   compress = require('compression'),
   methodOverride = require('method-override'),
-  //cookieParser = require('cookie-parser'),
+  session = require('express-session'),
+  MongoStore = require('connect-mongo')(session),
+  cookieParser = require('cookie-parser'),
   helmet = require('helmet'),
   //flash = require('connect-flash'),
   //consolidate = require('consolidate'),
@@ -84,8 +86,30 @@ module.exports.initMiddleware = function (app) {
   app.use(methodOverride());
 
   // Add the cookie parser and flash middleware
-  //app.use(cookieParser());
+  app.use(cookieParser());
   //app.use(flash());
+};
+
+/**
+ * Configure Express session
+ */
+module.exports.initSession = function (app, db) {
+  // Express MongoDB session storage
+  app.use(session({
+    saveUninitialized: true,
+    resave: true,
+    secret: config.sessionSecret,
+    cookie: {
+      maxAge: config.sessionCookie.maxAge,
+      httpOnly: config.sessionCookie.httpOnly,
+      secure: config.sessionCookie.secure && config.secure.ssl
+    },
+    key: config.sessionKey,
+    store: new MongoStore({
+      mongooseConnection: db.connection,
+      collection: config.sessionCollection
+    })
+  }));
 };
 
 /**
@@ -181,13 +205,13 @@ module.exports.initErrorRoutes = function (app) {
 /**
  * Configure Socket.io
  */
-// module.exports.configureSocketIO = function (app, db) {
-//   // Load the Socket.io configuration
-//   var server = require('./socket.io')(app, db);
+module.exports.configureSocketIO = function (app, db) {
+  // Load the Socket.io configuration
+  var server = require('./socket.io')(app, db);
 
-//   // Return server object
-//   return server;
-// };
+  // Return server object
+  return server;
+};
 
 /**
  * Initialize the Express application
@@ -210,9 +234,9 @@ module.exports.init = function (db) {
 
   // Initialize modules static client routes, before session!
   this.initModulesClientRoutes(app);
-
+ 
   // Initialize Express session
-  //this.initSession(app, db);
+  this.initSession(app, db);
 
   // Initialize Modules configuration
   this.initModulesConfiguration(app);
@@ -227,7 +251,7 @@ module.exports.init = function (db) {
   this.initErrorRoutes(app);
 
   // Configure Socket.io
-  //app = this.configureSocketIO(app, db);
+  app = this.configureSocketIO(app, db);
 
   return app;
 };
