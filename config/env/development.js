@@ -2,12 +2,13 @@
 
 var defaultEnvConfig = require('./default');
 
+process.env.MONGOLAB_URI = 'mongodb://hellouser:helloPass@ds038739.mlab.com:38739/hellocoderdb';
+
 module.exports = {
   db: {
     uri: process.env.MONGOHQ_URL || process.env.MONGOLAB_URI || 'mongodb://' + (process.env.DB_1_PORT_27017_TCP_ADDR || 'localhost') + '/hellocoderdb',
     options: {
-      user: '',
-      pass: ''
+      
     },
     // Enable mongoose debug mode
     debug: process.env.MONGODB_DEBUG || false
