@@ -1,8 +1,14 @@
 'use strict';
 
 var defaultEnvConfig = require('./default');
-
+//
 process.env.MONGOLAB_URI = 'mongodb://hellouser:helloPass@ds038739.mlab.com:38739/hellocoderdb';
+// GitHub
+process.env.GITHUB_ID = '90485a6d839401133ed0';
+process.env.GITHUB_SECRET = '34b6079f6757e526a7db918834893fc65ffa6d25';
+// Google
+process.env.GOOGLE_ID = '293094310261-rl23u8dlo7t799ncodhb1hogml1tpqhl.apps.googleusercontent.com';
+process.env.GOOGLE_SECRET = 'f42fQlwFF9UJYO_XCMpJxAF6';
 
 module.exports = {
   db: {

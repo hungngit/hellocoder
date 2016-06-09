@@ -4,8 +4,9 @@
  * Module dependencies
  */
 var passport = require('passport'),
+  path = require('path'),
   TwitterStrategy = require('passport-twitter').Strategy,
-  users = require('../../controllers/users.server.controller');
+  users = require(path.resolve('./app/controllers/users/users.server.controller'));
 
 module.exports = function (config) {
   // Use twitter strategy

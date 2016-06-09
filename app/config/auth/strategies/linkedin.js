@@ -4,16 +4,18 @@
  * Module dependencies
  */
 var passport = require('passport'),
-  GoogleStrategy = require('passport-google-oauth').OAuth2Strategy,
-  users = require('../../controllers/users.server.controller');
+  path = require('path'),
+  LinkedInStrategy = require('passport-linkedin').Strategy,
+  users = require(path.resolve('./app/controllers/users/users.server.controller'));
 
 module.exports = function (config) {
-  // Use google strategy
-  passport.use(new GoogleStrategy({
-    clientID: config.google.clientID,
-    clientSecret: config.google.clientSecret,
-    callbackURL: config.google.callbackURL,
-    passReqToCallback: true
+  // Use linkedin strategy
+  passport.use(new LinkedInStrategy({
+    consumerKey: config.linkedin.clientID,
+    consumerSecret: config.linkedin.clientSecret,
+    callbackURL: config.linkedin.callbackURL,
+    passReqToCallback: true,
+    profileFields: ['id', 'first-name', 'last-name', 'email-address', 'picture-url']
   },
   function (req, accessToken, refreshToken, profile, done) {
     // Set the provider data and include tokens
@@ -28,8 +30,8 @@ module.exports = function (config) {
       displayName: profile.displayName,
       email: profile.emails[0].value,
       username: profile.username,
-      profileImageURL: (providerData.picture) ? providerData.picture : undefined,
-      provider: 'google',
+      profileImageURL: (providerData.pictureUrl) ? providerData.pictureUrl : undefined,
+      provider: 'linkedin',
       providerIdentifierField: 'id',
       providerData: providerData
     };

@@ -63,12 +63,12 @@ var UserSchema = new mongoose.Schema({
             ref: 'User'
         }
 	},
-	Followers: [
+	Followers: [{
 		Id: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User'
         }
-	],
+	}],
 	Address: {
 		type: String,
 		default: ''
@@ -83,6 +83,4 @@ var UserSchema = new mongoose.Schema({
 	}
 });
 
-var User = mongoose.model('User', UserSchema);
-
-module.exports = User;
+module.exports = UserSchema;

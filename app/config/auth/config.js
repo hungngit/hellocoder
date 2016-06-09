@@ -4,8 +4,8 @@
  * Module dependencies
  */
 var passport = require('passport'),
-  authService = require('./services/authService'),
   path = require('path'),
+  User = require(path.resolve('./app/repositories/user')),
   config = require(path.resolve('./config/config'));
 
 /**
@@ -19,14 +19,12 @@ module.exports = function (app, db) {
 
   // Deserialize sessions
   passport.deserializeUser(function (id, done) {
-    // User.findOne({
-    //   _id: id
-    // }, '-salt -password', function (err, user) {
-    //   done(err, user);
-    // });
-    authService.GetSaltAndPassById(id, done);
+    User.findOne({
+      _id: id
+    }, '-salt -password', function (err, user) {
+      done(err, user);
+    });
   });
-
   // Initialize strategies
   config.utils.getGlobbedPaths(path.join(__dirname, './strategies/**/*.js')).forEach(function (strategy) {
     require(path.resolve(strategy))(config);

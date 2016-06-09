@@ -63,8 +63,8 @@ module.exports = {
     routes: ['app/routes/*.js'],
     services: ['app/service/*.js'],
     routes: ['app/routes/*.js'],
-    sockets: 'modules/*/server/sockets/**/*.js',
-    config: ['modules/*/server/config/*.js'],
+    sockets: 'modules/*/server/sockets/!strategies/*.js',
+    config: ['app/config/*.js'],
     //policies: 'modules/*/server/policies/*.js',
     views: ['modules/*/server/views/*.html']
   }
