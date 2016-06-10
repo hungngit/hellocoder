@@ -2,7 +2,7 @@
 
 var defaultEnvConfig = require('./default');
 //
-process.env.MONGOLAB_URI = 'mongodb://hellouser:helloPass@ds038739.mlab.com:38739/hellocoderdb';
+process.env.MONGOLAB_URI = 'mongodb://hellocoder:hellocoderABC123@ds013004.mlab.com:13004/hellocoder-develop';
 // GitHub
 process.env.GITHUB_ID = '90485a6d839401133ed0';
 process.env.GITHUB_SECRET = '34b6079f6757e526a7db918834893fc65ffa6d25';
@@ -14,7 +14,7 @@ module.exports = {
   db: {
     uri: process.env.MONGOHQ_URL || process.env.MONGOLAB_URI || 'mongodb://' + (process.env.DB_1_PORT_27017_TCP_ADDR || 'localhost') + '/hellocoderdb',
     options: {
-      
+
     },
     // Enable mongoose debug mode
     debug: process.env.MONGODB_DEBUG || false
@@ -30,7 +30,7 @@ module.exports = {
       //  directoryPath: process.cwd(),
       //  fileName: 'access.log',
       //  rotatingLogs: { // for more info on rotating logs - https://github.com/holidayextras/file-stream-rotator#usage
-      //    active: false, // activate to use rotating logs 
+      //    active: false, // activate to use rotating logs
       //    fileName: 'access-%DATE%.log', // if rotating logs are active, this fileName setting will be used
       //    frequency: 'daily',
       //    verbose: false
