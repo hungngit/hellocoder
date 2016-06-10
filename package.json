@@ -18,6 +18,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bower": "1.7.9",
     "body-parser": "^1.15.1",
     "compression": "^1.6.2",
     "connect-mongo": "^1.2.0",
