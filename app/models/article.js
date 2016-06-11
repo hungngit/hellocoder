@@ -16,10 +16,10 @@ var ArticleSchema = new mongoose.Schema({
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'ArticleStatus'
 		},
-        CreatedBy: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'User'
-        }
+    CreatedBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }
 	},
 	Comments: [{
         text: String,
@@ -73,7 +73,7 @@ var ArticleSchema = new mongoose.Schema({
 		}
 	},
 	IsDeleted: {
-		type: Boolean, 
+		type: Boolean,
 		default: false
 	}
 });
