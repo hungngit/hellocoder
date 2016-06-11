@@ -1,21 +1,20 @@
-app 		 // application folder
--- bin  	 // file to run app
--- client 	 // Web UI
-   -- admin  // admin pages
-   -- assets // doc, files,...
-   -- lib 	 // third-party lib
-   -- shared // 
-   -- theme	 // site template
-   -- web	 // user pages
--- models 	 // domain models
--- routes	 // routing objects
--- services	 // services
-config		 // configs
-documents	 // system documents
-sql 		 // sql files
-test		 // unit tests
-uploads		 // upload files
-index.js	 // start file of app
-package.json // package.json
+app 		 // application folder <br />
+-- bin  	 // file to run app <br />
+-- client 	 // Web UI <br />
+   -- admin  // admin pages <br />
+   -- assets // doc, files,... <br />
+   -- lib 	 // third-party lib <br />
+   -- shared // <br />
+   -- theme	 // site template <br />
+   -- web	 // user pages <br />
+-- models 	 // domain models <br />
+-- routes	 // routing objects <br />
+-- services	 // services <br />
+config		 // configs <br />
+documents	 // system documents <br />
+sql 		 // sql files <br />
+test		 // unit tests <br />
+uploads		 // upload files <br />
+index.js	 // start file of app <br />
+package.json // package.json <br />
 README.md
-test
