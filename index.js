@@ -1,5 +1,6 @@
 'use strict';
-
+// Loads environment variables from .env
+require('dotenv').config();
 /**
  * Module dependencies.
  */
