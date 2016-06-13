@@ -24,9 +24,12 @@ build/Release
 
 # Dependency directory
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
-// ignore folders/files 
+// ignore folders/files
 node_modules
 public/lib
 
 #don't check in config file by default
 #config.json
+
+# Environment variables
+.env
