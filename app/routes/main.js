@@ -6,6 +6,10 @@ var path = require('path');
  */
 
 module.exports = function (app) {
+  // Response with home Under Construction
+  app.get('/', function (req, res) {
+    res.send('Welcome to HELLO CODER – Under Construction');
+  });
   // Response with public/web/admin/index.html
   app.route('/admin').get(function(req, res, next) {
     res.sendFile('index.html', { root: path.resolve('./public/web/admin/') });
