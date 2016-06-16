@@ -1,0 +1,265 @@
+<div class="ui page grid">
+	<!-- ng-controller="FeedController" -->
+	<div class="eleven wide column feed-col ng-scope"  ng-init="focusTab('top', true)">
+		<input ng-init="new_notif_number=12" type="hidden">
+		<input ng-init="til_notif_number=5" type="hidden">
+
+		<!-- Smartphone search -->
+		<!-- <div class="ui search icon input">
+			<input value="" placeholder="Tìm kiếm" type="text">
+			<i class="search icon"></i>
+		</div> -->
+
+		<!-- New post -->
+		<div class="new-post" ng-include="'/web/blog/shared/views/_randomQuote.html'" >
+		</div>
+
+		<!-- Tabular menu -->
+		<div class="ui top attached fluid tabular menu">
+			<a class="item active" ng-class="{'active':focus=='top'}" ng-click="focusTab('top')" id="top-tab">
+				<span>Bài viết hay</span>
+			</a>
+
+			<a class="item" ng-class="{'active':focus=='new'}" ng-click="focusTab('new')" id="new-tab">
+				<span>Bài viết mới</span>
+				<!-- ngIf: new_notif_number > 0 -->
+				<div class="circular ui label ng-binding ng-scope" ng-if="new_notif_number > 0">12</div><!-- end ngIf: new_notif_number > 0 -->
+			</a>
+
+			<a class="item" ng-class="{'active':focus=='til'}" ng-click="focusTab('til')" id="til-tab">
+				<span>#TIL</span>
+				<!-- ngIf: til_notif_number > 0 -->
+				<div class="circular ui label ng-binding ng-scope" ng-if="til_notif_number > 0">5</div><!-- end ngIf: til_notif_number > 0 -->
+			</a>
+		</div>
+
+		<div class="feed">
+
+			<!-- Retrieving data -->						
+
+			<!-- Feed Top -->
+			<div class="ui bottom attached tab massive selection divided list feed-list active" ng-class="{'active':focus=='top'}" id="top-panel">
+
+					<!-- ngRepeat: post in posts -->
+					<!-- ng-repeat="post in posts" -->
+					<div class="item ng-scope" >
+
+						<!-- Item -->
+						<a href="http://kipalog.com/users/HuyTran/mypage" class="ui avatar image">
+							<img class="lazy" src="themes/default/images/x_rc96sz_normal.png">
+						</a>
+						<a href="http://kipalog.com/posts/Phuc-tap-hoa-van-de--Phan-tich-va-mo-phong-nut-cam-xuc-cua-Facebook" class="right floated feed-date ng-binding">
+							70
+							<i class="bookmark icon"></i>
+							22
+							<i class="comment icon"></i>
+						</a>
+						<div class="content">
+							<div class="header">
+								<a class="ng-binding" href="http://kipalog.com/posts/Phuc-tap-hoa-van-de--Phan-tich-va-mo-phong-nut-cam-xuc-cua-Facebook">
+									Phức tạp hoá vấn đề: Phân tích và mô phỏng nút cảm xúc của Facebook
+								</a>
+								<div class="tag">
+									<!-- ngRepeat: tag in post.tags -->
+									<!-- ng-repeat="tag in post.tags" -->
+									<a href="http://kipalog.com/tags/UI" class="ui label ng-binding ng-scope" >
+										UI
+									</a>
+								</div>
+							</div>
+							<div class="detail ng-binding"> (Ảnh)	Tiếp tục sêri (Link) lần này, chúng ta sẽ cùng tìm hiểu và mô phỏng lại một chức năng mà mọi người đang bắt đầu sử dụng hằng ngày, đó là chứ... </div>
+							<div class="meta ng-binding">
+								<a class="ng-binding" href="http://kipalog.com/users/HuyTran/mypage">
+									Huy Tran
+								</a>
+								viết
+								16 ngày
+								trước
+							</div>
+							<div class="smart-meta ng-binding">
+								70
+								<i class="bookmark icon"></i>
+								22
+								<i class="comment icon"></i>
+							</div>
+						</div>
+					</div><!-- end ngRepeat: post in posts -->
+
+					<!-- Load more button -->
+					<div class="ui fluid basic button load-more segment touchend-replace" ng-hide="reachFull" ng-click="loadmore('top')">
+						<div class="ui inverted dimmer" ng-class="{'active':loading_more}">
+							<div class="ui text loader" style="background: transparent url('ring-41adc1d3011969434d0f5d3a59f879a2.gif') no-repeat scroll 45% 0px / 32px 32px ! important;">
+								Đang tải dữ liệu ...
+							</div>
+						</div>
+						<span ng-hide="loading">
+							Xem tiếp...
+						</span>
+					</div>
+				</div>
+
+			<!-- Feed New -->
+			<div class="ui bottom attached tab massive selection divided list feed-list" ng-class="{'active':focus=='new'}" ng-hide="data_retrieving" id="new-panel">
+					<!-- ngRepeat: post in posts -->
+					<div class="item ng-scope" ng-repeat="post in posts">
+
+						<!-- Item -->
+						<a href="http://kipalog.com/users/HuyTran/mypage" class="ui avatar image">
+							<img class="lazy" src="themes/default/images/x_rc96sz_normal.png">
+						</a>
+						<a href="http://kipalog.com/posts/Phuc-tap-hoa-van-de--Phan-tich-va-mo-phong-nut-cam-xuc-cua-Facebook" class="right floated feed-date ng-binding">
+							70
+							<i class="bookmark icon"></i>
+							22
+							<i class="comment icon"></i>
+						</a>
+						<div class="content">
+							<div class="header">
+								<a class="ng-binding" href="http://kipalog.com/posts/Phuc-tap-hoa-van-de--Phan-tich-va-mo-phong-nut-cam-xuc-cua-Facebook">
+									Phức tạp hoá vấn đề: Phân tích và mô phỏng nút cảm xúc của Facebook
+								</a>
+								<div class="tag">
+									<!-- ngRepeat: tag in post.tags --><a href="http://kipalog.com/tags/UI" class="ui label ng-binding ng-scope" ng-repeat="tag in post.tags">
+										UI
+									</a><!-- end ngRepeat: tag in post.tags --><a href="http://kipalog.com/tags/CSS" class="ui label ng-binding ng-scope" ng-repeat="tag in post.tags">
+										CSS
+									</a><!-- end ngRepeat: tag in post.tags --><a href="http://kipalog.com/tags/CSS3" class="ui label ng-binding ng-scope" ng-repeat="tag in post.tags">
+										CSS3
+									</a><!-- end ngRepeat: tag in post.tags --><a href="http://kipalog.com/tags/Animation" class="ui label ng-binding ng-scope" ng-repeat="tag in post.tags">
+										Animation
+									</a><!-- end ngRepeat: tag in post.tags -->
+								</div>
+							</div>
+							<div class="detail ng-binding"> (Ảnh)	Tiếp tục sêri (Link) lần này, chúng ta sẽ cùng tìm hiểu và mô phỏng lại một chức năng mà mọi người đang bắt đầu sử dụng hằng ngày, ó là chứ... </div>
+							<div class="meta ng-binding">
+								<a class="ng-binding" href="http://kipalog.com/users/HuyTran/mypage">
+									Huy Tran
+								</a>
+								viết
+								16 ngày
+								trước
+							</div>
+							<div class="smart-meta ng-binding">
+								70
+								<i class="bookmark icon"></i>
+								22
+								<i class="comment icon"></i>
+							</div>
+						</div>
+					</div>
+					<!-- end ngRepeat: post in posts -->
+					<!-- Load more button -->
+					<div class="ui fluid basic button load-more segment touchend-replace" ng-hide="reachFull" ng-click="loadmore('new')">
+						<div class="ui inverted dimmer" ng-class="{'active':loading_more}">
+							<div class="ui text loader" style="background: transparent url('ring-41adc1d3011969434d0f5d3a59f879a2.gif') no-repeat scroll 45% 0px / 32px 32px ! important;">
+								Đang tải dữ liệu ...
+							</div>
+						</div>
+						<span ng-hide="loading">
+							Xem tiếp...
+						</span>
+					</div>
+			</div>
+
+			<!-- Feed Til -->
+			<div class="ui bottom attached tab massive selection divided list feed-list" ng-class="{'active':focus=='til'}" ng-hide="data_retrieving" id="til-panel">
+					<!-- ngRepeat: post in posts -->
+					<div class="item ng-scope" ng-repeat="post in posts">
+
+						<!-- Item -->
+						<a href="http://kipalog.com/users/HuyTran/mypage" class="ui avatar image">
+							<img class="lazy" src="themes/default/images/x_rc96sz_normal.png">
+						</a>
+						<a href="http://kipalog.com/posts/Phuc-tap-hoa-van-de--Phan-tich-va-mo-phong-nut-cam-xuc-cua-Facebook" class="right floated feed-date ng-binding">
+							70
+							<i class="bookmark icon"></i>
+							22
+							<i class="comment icon"></i>
+						</a>
+						<div class="content">
+							<div class="header">
+								<a class="ng-binding" href="http://kipalog.com/posts/Phuc-tap-hoa-van-de--Phan-tich-va-mo-phong-nut-cam-xuc-cua-Facebook">
+									Phức tạp hoá vấn đề: Phân tích và mô phỏng nút cảm xúc của Facebook
+								</a>
+								<div class="tag">
+									<!-- ngRepeat: tag in post.tags --><a href="http://kipalog.com/tags/UI" class="ui label ng-binding ng-scope" ng-repeat="tag in post.tags">
+										UI
+									</a><!-- end ngRepeat: tag in post.tags --><a href="http://kipalog.com/tags/CSS" class="ui label ng-binding ng-scope" ng-repeat="tag in post.tags">
+										CSS
+									</a><!-- end ngRepeat: tag in post.tags --><a href="http://kipalog.com/tags/CSS3" class="ui label ng-binding ng-scope" ng-repeat="tag in post.tags">
+										CSS3
+									</a><!-- end ngRepeat: tag in post.tags --><a href="http://kipalog.com/tags/Animation" class="ui label ng-binding ng-scope" ng-repeat="tag in post.tags">
+										Animation
+									</a><!-- end ngRepeat: tag in post.tags -->
+								</div>
+							</div>
+							<div class="detail ng-binding"> (Ảnh)	Tiếp tục sêri (Link) lần này, chúng ta sẽ cùng tìm hiểu và mô phỏng lại một chức năng mà mọi người đang bắt đầu sử dụng hằng ngày, đó là chứ... </div>
+							<div class="meta ng-binding">
+								<a class="ng-binding" href="http://kipalog.com/users/HuyTran/mypage">
+									Huy Tran
+								</a>
+								viết
+								16 ngày
+								trước
+							</div>
+							<div class="smart-meta ng-binding">
+								70
+								<i class="bookmark icon"></i>
+								22
+								<i class="comment icon"></i>
+							</div>
+						</div>
+					</div>
+					<!-- end ngRepeat: post in posts -->
+
+					<!-- Load more button -->
+					<div class="ui fluid basic button load-more segment touchend-replace" ng-hide="reachFull" ng-click="loadmore('til')">
+						<div class="ui inverted dimmer" ng-class="{'active':loading_more}">
+							<div class="ui text loader" style="background: transparent url('ring-41adc1d3011969434d0f5d3a59f879a2.gif') no-repeat scroll 45% 0px / 32px 32px ! important;">
+								Đang tải dữ liệu ...
+							</div>
+						</div>
+						<span ng-hide="loading">
+							Xem tiếp...
+						</span>
+					</div>
+			</div>
+		</div>
+
+	</div>
+
+	<!-- Blank column -->
+	<div class="one wide column blank-col"></div>
+
+	<!-- Meta -->
+	<div class="four wide column meta-col">
+
+		<!-- Profile -->
+		<div class="meta-profile item" ng-include="'/web/blog/shared/views/_metaUserProfile.html'">
+		</div>
+
+		<!-- Hot tags -->
+		<div class="row meta-hot-tags" ng-include="'/web/blog/shared/views/_metaHotTags.html'">
+		</div>
+
+		<div class="sticky" ng-class="{stick:pinStick}">
+
+			<!-- User ranking -->
+			<div class="row meta-ranking-author" 
+				ng-include="'/web/blog/shared/views/_topAuthors.html'">
+			</div>
+
+			<!-- Organizations list -->
+			<div class="row meta-organization" 
+				ng-include="'/web/blog/shared/views/_topOrgs.html'">
+			</div>
+		</div>
+
+		<!-- Scroll to top -->
+		<div class="scroll-top">
+			<i class="large level up icon"></i>
+		</div>
+
+	</div>
+
+</div> 

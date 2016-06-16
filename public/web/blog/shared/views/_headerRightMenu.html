@@ -1,0 +1,78 @@
+<!-- New post -->
+<div class="ui simple dropdown item newpost">
+	<a class="main" href="http://kipalog.com/posts/new">
+		<i class="small edit icon"></i>
+		<strong>Viết bài</strong>
+	</a>
+	<i class="triangle down icon"></i>
+	<div class="menu">
+		<div class="head item">Dùng mẫu</div>
+			<a href="http://kipalog.com/posts/new?template_id=1" class="child item">
+					<i class="file outline icon"></i>#TIL</a>
+			<div class="head item">Bản nháp</div>
+		<a href="http://kipalog.com/posts/drafts" class="all drafts child item">
+				Xem tất cả nháp</a>
+	</div>
+</div>
+
+<!-- Home -->
+<a class="item home scale-item" href="http://kipalog.com/posts">
+	<i class="small home icon"></i>
+	<strong>Trang chủ</strong>
+</a>
+<!-- Store -->
+<a class="item store scale-item" href="http://kipalog.com/posts/store">
+	<i class="small bookmark icon"></i>
+	<strong>Kho log</strong>
+</a>
+<!-- Profile -->
+<div class="ui profile right top pointing dropdown item">
+	<div class="ui avatar image">
+		<img class="lazy" src="themes/default/images/picture">
+	</div>
+	<i class="dropdown icon"></i>
+	<div class="menu">
+		<a class="item" href="http://kipalog.com/users/ThuanNguyen1/mypage">
+			<i class="user icon"></i>Trang cá nhân</a>
+			<a class="item" href="http://kipalog.com/users/1ehMbkpULIKr0jxYcdi5wQ">
+			<i class="setting icon"></i>Cài đặt</a>
+			<a class="item" href="http://kipalog.com/users/sign_out#login" data-method="delete" rel="nofollow">
+				<i class="sign out icon"></i>Đăng xuất
+		</a>
+	</div>
+</div>
+<!-- Notification -->
+<div class="ui notification right top pointing fluid floating dropdown item" ng-click="seeAllNotifications();">
+	<i class="bell icon"></i>
+	<!-- ngIf: unchecked_events_count > 0 -->
+	<div class="menu">
+		<p class="ui dividing header">
+			<span class="clear-all-notify" ng-click="clearAllNotification();">
+				<i class="checkmark icon"></i>Đánh dấu đã xem</span>
+			<span class="title">Thông báo</span>
+		</p>
+		<!-- Notifications -->
+		<!-- ngIf: events.length > 0 -->
+		<div ng-if="events.length > 0" class="ui feed segment ng-scope">
+			<!-- Events -->
+			<!-- ngRepeat: event in events -->
+			<a ng-repeat="event in events" href="http://kipalog.com/notifications/75519/clear" class="event ng-scope active" ng-class="{active: event.status!='checked'}">
+				<div class="label">
+					<img src="themes/default/images/square_icon_simple.png" class="ui avatar image square_image" ng-class="{'square_image':event.org==true}" ,="" ng-src="https://s3-ap-southeast-1.amazonaws.com/kipalog.com/square_icon_simple.png_zr8il37o2i">
+				</div>
+				<div class="content">
+					<div class="summary">
+						<strong class="ng-binding">Kipalog</strong>&nbsp;<span class="ng-binding" ng-bind-html="event.message">vừa thêm tính năng mới <strong>rich editor</strong>. Bây giờ bạn đã có thể paste trực tiếp link Gist, Codepen, Youtube, SlideShare và SpeakerDeck khi bình luận hoặc viết bài!
+						</span>&nbsp;<strong class="ng-binding"></strong>
+					</div>
+					<div class="extra ng-binding">1 tháng</div>
+				</div>
+			</a>
+			<!-- end ngRepeat: event in events -->
+		</div><!-- end ngIf: events.length > 0 -->
+		<!-- No notification -->
+		<!-- ngIf: events.length==0 -->
+		<!-- Tail -->
+		<div class="ui tail segment"></div>
+	</div>
+</div>
