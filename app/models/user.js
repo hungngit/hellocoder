@@ -1,6 +1,6 @@
 var mongoose = require("mongoose");
 
-var UserSchema = new mongoose.Schema({
+var UserSchema = mongoose.Schema({
 	Id: {
 		type: mongoose.Schema.Types.ObjectId,
 		index: true
@@ -49,7 +49,7 @@ var UserSchema = new mongoose.Schema({
 		type: String,
 		default: ''
 	},
-	UserTypeId: {
+	UserType: {
 		type: mongoose.Schema.Types.ObjectId,
         ref: 'UserType'
 	},

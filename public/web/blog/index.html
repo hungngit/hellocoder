@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="hellocodeApp" class="ng-scope">
+<html class="ng-scope">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<!-- Standard Meta -->
@@ -25,10 +25,12 @@
     	<script src="lib/lodash/dist/lodash.js"></script>
 
     	<script src="web/blog/app.js"></script>
-	    <script src="shared/factories/constant.factory.js"></script>
+    	<script src="web/blog/routes.js"></script>
 	    <script src="shared/factories/common.js"></script>
-    	<!-- <script src="web/blog/routes.js"></script>
-    	 -->
+	    <script src="shared/factories/constant.factory.js"></script>
+	    <script src="shared/factories/request.factory.js"></script>
+    	
+    	<script src="web/blog/dashboard/dashboard.controller.js"></script>
 	</head>
 	<body>
 		<!-- ng-controller="HeaderController" -->
@@ -71,12 +73,55 @@
 			</div>
 		</div>
 
-		<main class="master-body" scrollable-to-top="" data-target=".scroll-top" 
-			ui-view 
-			ng-include="'/web/blog/dashboard/dashboard-view.html'">
-		</main>
+		<!-- <main class="master-body" scrollable-to-top="" data-target=".scroll-top" ui-view>
+		</main> -->
+		<div ui-view></div>
 		<!-- Footer -->
 		<footer class="master-footer ui page grid" ng-include="'/web/blog/shared/views/_footer.html'" >
 		</footer>
+		<script>
+	        jQuery(document).ready(function () {
+	            //Metronic.init(); // init metronic core componets
+	            //Layout.init(); // init layout
+	            //QuickSidebar.init(); // init quick sidebar
+	            /*
+	             Index.init();
+	             Index.initDashboardDaterange();
+	             Index.initJQVMAP(); // init index page's custom scripts
+	             Index.initCalendar(); // init index page's custom scripts
+	             Index.initCharts(); // init index page's custom scripts
+	             Index.initChat();
+	             Index.initMiniCharts();
+	             Tasks.initDashboardWidget();
+	             */
+	            var initInjector = angular.injector(['ng']);
+	            var $http = initInjector.get('$http');
+	            var $q = initInjector.get('$q');
+	            var cc = (sessionStorage.getItem('sessionLang') || 'EN');
+	            // var generalData = $http.get("/api/reference/general?cc=" + cc);
+	            // var translationData = $http.get("/api/reference/translation?cc=" + cc);
+
+	            // moment && moment.locale(cc);
+	            // $q.all([generalData, translationData]).then(
+	            //         function (response) {
+	            //             sessionStorage.setItem('generalData', JSON.stringify(response[0].data));
+	            //             sessionStorage.setItem('translationData', JSON.stringify(response[1].data));
+	            //             angular.bootstrap('body', ['hellocoderApp']);
+	            //         }
+	            // );
+
+	            //sessionStorage.setItem('generalData', JSON.stringify(response[0].data));
+                //sessionStorage.setItem('translationData', JSON.stringify(response[1].data));
+                angular.bootstrap('body', ['hellocoderApp']);
+
+	            if (Util.isIE()) {
+	                webshims.setOptions('forms-ext', {
+	                    replaceUI: 'auto',
+	                    types: 'number'
+	                });
+	                webshims.polyfill('forms forms-ext');
+	            }
+	        });
+	    </script>
 	</body>
 </html>

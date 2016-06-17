@@ -1,6 +1,6 @@
 var mongoose = require("mongoose");
 
-var UserTypeSchema = new mongoose.Schema({
+var UserTypeSchema = mongoose.Schema({
 	Id: {
 		type: mongoose.Schema.Types.ObjectId,
 		index: true

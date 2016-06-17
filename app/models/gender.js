@@ -1,11 +1,11 @@
 var mongoose = require("mongoose");
 
-var GenderSchema = new mongoose.Schema({
+var GenderSchema = mongoose.Schema({
 	Id: {
 		type: mongoose.Schema.Types.ObjectId,
 		index: true
 	},
-	GenderName: {
+	Name: {
 		type: String,
 		index: true
 	},

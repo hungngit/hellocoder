@@ -1,11 +1,11 @@
 var mongoose = require("mongoose");
 
-var CategorySchema = new mongoose.Schema({
+var CategorySchema = mongoose.Schema({
 	Id: {
 		type: mongoose.Schema.Types.ObjectId,
 		index: true
 	},
-	CategoryName: {
+	Name: {
 		type: String,
 		index: true
 	},

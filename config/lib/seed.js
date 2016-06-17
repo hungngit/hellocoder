@@ -4,155 +4,182 @@ var _ = require('lodash'),
   config = require('../config'),
   mongoose = require('mongoose'),
   chalk = require('chalk'),
-  crypto = require('crypto');
+  crypto = require('crypto'),
+  path = require('path'),
+  Q = require('q');
 
 // global seed options object
 var seedOptions = {};
 
-function removeUser (user) {
-  return new Promise(function (resolve, reject) {
-    var User = mongoose.model('User');
-    User.find({ username: user.username }).remove(function (err) {
-      if (err) {
-        reject(new Error('Failed to remove local ' + user.username));
-      }
-      resolve();
-    });
-  });
-}
-
-function saveUser (user) {
-  return function() {
-    return new Promise(function (resolve, reject) {
-      // Then save the user
-      user.save(function (err, theuser) {
-        if (err) {
-          reject(new Error('Failed to add local ' + user.username));
-        } else {
-          resolve(theuser);
-        }
-      });
-    });
-  };
-}
-
-function checkUserNotExists (user) {
-  return new Promise(function (resolve, reject) {
-    var User = mongoose.model('User');
-    User.find({ username: user.username }, function (err, users) {
-      if (err) {
-        reject(new Error('Failed to find local account ' + user.username));
-      }
-
-      if (users.length === 0) {
-        resolve();
-      } else {
-        reject(new Error('Failed due to local account already exists: ' + user.username));
-      }
-    });
-  });
-}
-
-function reportSuccess (password) {
-  return function (user) {
-    return new Promise(function (resolve, reject) {
-      if (seedOptions.logResults) {
-        console.log(chalk.bold.red('Database Seeding:\t\t\tLocal ' + user.username + ' added with password set to ' + password));
-      }
-      resolve();
-    });
-  };
-}
-
-// save the specified user with the password provided from the resolved promise
-function seedTheUser (user) {
-  return function (password) {
-    return new Promise(function (resolve, reject) {
-
-      var User = mongoose.model('User');
-      // set the new password
-      user.password = password;
-
-      if (user.username === seedOptions.seedAdmin.username && process.env.NODE_ENV === 'production') {
-        checkUserNotExists(user)
-          .then(saveUser(user))
-          .then(reportSuccess(password))
-          .then(function () {
-            resolve();
-          })
-          .catch(function (err) {
-            reject(err);
-          });
-      } else {
-        removeUser(user)
-          .then(saveUser(user))
-          .then(reportSuccess(password))
-          .then(function () {
-            resolve();
-          })
-          .catch(function (err) {
-            reject(err);
-          });
-      }
-    });
-  };
-}
-
-// report the error
-function reportError (reject) {
-  return function (err) {
-    if (seedOptions.logResults) {
-      console.log();
-      console.log('Database Seeding:\t\t\t' + err);
-      console.log();
-    }
-    reject(err);
-  };
-}
-
 module.exports.start = function start(options) {
   // Initialize the default seed options
   seedOptions = _.clone(config.seedDB.options, true);
-
-  // Check for provided options
-
-  if (_.has(options, 'logResults')) {
-    seedOptions.logResults = options.logResults;
+  var insertedData = {
+    userTypes: [],
+    userStatuses: [],
+    articleStatuses: [],
+    resources: [],
+    tags: [],
+    categories: [],
+    genders: [],
+    series: [],
+    users: [],
+    articles: []
   }
+  Q.when()
+  .then(function(){
+    require(path.resolve('./app/seeddata/usertype'))(config.seedDB);
+    if(!config.seedDB.options.userTypes.length) return;
+    var UserType = mongoose.model('UserType');        
+    //Insert UserType
+    var insertUserTypePromises = config.seedDB.options.userTypes.map(function (userType) {
+        let userTypeObj = new UserType(userType);
+        return userTypeObj.save()
+          .then(userType => insertedData.userTypes.push(userType))
+          .catch(err => console.log(err));
+    });
+    return Q.all(insertUserTypePromises);
+  })
+  .then(function(){
+    require(path.resolve('./app/seeddata/userstatus'))(config.seedDB);
+    if(!config.seedDB.options.userStatuses.length) return;
+    var UserStatus = mongoose.model('UserStatus');        
+    //Insert UserStatus
+    var insertUserStatusPromises = config.seedDB.options.userStatuses.map(function (userStatus) {
+        let userStatusObj = new UserStatus(userStatus);
+        return userStatusObj.save()
+          .then(userStatus => insertedData.userStatuses.push(userStatus))
+          .catch(err => console.log(err));
+    });
+    return Q.all(insertUserStatusPromises);
+  })
+  .then(function(){
+    require(path.resolve('./app/seeddata/articlestatus'))(config.seedDB);
+    if(!config.seedDB.options.articleStatuses.length) return;
+    var ArticleStatus = mongoose.model('ArticleStatus');        
+    //Insert ArticleStatus
+    var insertArticleStatusPromises = config.seedDB.options.articleStatuses.map(function (articleStatus) {
+        let articleStatusObj = new ArticleStatus(articleStatus);
+        return articleStatusObj.save()
+          .then(articleStatus => insertedData.articleStatuses.push(articleStatus))
+          .catch(err => console.log(err));
+    });
+    return Q.all(insertArticleStatusPromises);
+  })
+  .then(function(){
+    require(path.resolve('./app/seeddata/resource'))(config.seedDB);
+    if(!config.seedDB.options.resources.length) return;
+    var Resource = mongoose.model('Resource');        
+    //Insert Resource
+    var insertResourcePromises = config.seedDB.options.resources.map(function (resource) {
+        let resourceObj = new Resource(resource);
+        return resourceObj.save()
+          .then(resource => insertedData.resources.push(resource))
+          .catch(err => console.log(err));
+    });
+    return Q.all(insertResourcePromises);
+  })
+  .then(function(){
+    require(path.resolve('./app/seeddata/tag'))(config.seedDB);
+    if(!config.seedDB.options.tags.length) return;
+    var Tag = mongoose.model('Tag');        
+    //Insert Tag
+    var insertTagPromises = config.seedDB.options.tags.map(function (tag) {
+        let tagObj = new Tag(tag);
+        return tagObj.save()
+          .then(tag => insertedData.tags.push(tag))
+          .catch(err => console.log(err));
+    });
+    return Q.all(insertTagPromises);
+  })
+  .then(function(){
+    require(path.resolve('./app/seeddata/category'))(config.seedDB);
+    if(!config.seedDB.options.categories.length) return;
+    var Category = mongoose.model('Category');        
+    //Insert Category
+    var insertCatPromises = config.seedDB.options.categories.map(function (category) {
+        let categoryObj = new Category(category);
+        return categoryObj.save()
+          .then(category => insertedData.categories.push(category))
+          .catch(err => console.log(err));
+    });
+    return Q.all(insertCatPromises);
+  })
+  .then(function(){
+    require(path.resolve('./app/seeddata/gender'))(config.seedDB);
+    if(!config.seedDB.options.genders.length) return;
+    var Gender = mongoose.model('Gender');        
+    //Insert Gender
+    var insertGenderPromises = config.seedDB.options.genders.map(function (gender) {
+        let genderObj = new Gender(gender);
+        return genderObj.save()
+          .then(gender => insertedData.genders.push(gender))
+          .catch(err => console.log(err));
+    });
+    return Q.all(insertGenderPromises);
+  })
+  .then(function(){
+    require(path.resolve('./app/seeddata/series'))(config.seedDB);
+    if(!config.seedDB.options.series.length) return;
+    var Series = mongoose.model('Series');        
+    //Insert Series
+    var insertSeriesPromises = config.seedDB.options.series.map(function (series) {
+        series.CategoryId = insertedData.categories[0].Id;
+        let seriesObj = new Series(series);
+        return seriesObj.save()
+          .then(series => insertedData.series.push(series))
+          .catch(err => console.log(err));
+    });
+    return Q.all(insertSeriesPromises);
+  })
+  .then(function(){
+    require(path.resolve('./app/seeddata/user'))(config.seedDB);
+    if(!config.seedDB.options.users.length) return;
+    var User = mongoose.model('User');        
+    //Insert User
+    var insertUserPromises = config.seedDB.options.users.map(function (user) {
+        user.Gender = insertedData.genders[0].Id;
+        user.UserType = insertedData.userTypes[0].Id;
+        user.Status.Id = insertedData.userStatuses[0].Id;        
+        let userObj = new User(user);
+        return userObj.save()
+          .then(user => insertedData.users.push(user))
+          .catch(err => console.log(err));
+    });
+    return Q.all(insertUserPromises);
+  })
+  .then(function(){
+    require(path.resolve('./app/seeddata/article'))(config.seedDB);
+    if(!config.seedDB.options.articles.length) return;
+    var Article = mongoose.model('Article');        
+    //Insert Article
+    var insertArticlePromises = config.seedDB.options.articles.map(function (article) {
+      article.Status = {
+        Id: insertedData.articleStatuses[0].Id,
+        CreatedBy: insertedData.users[0].Id,
+      };
+      article.Comments[0].CreatedBy = insertedData.users[0].Id;
+      article.Comments[1].CreatedBy = insertedData.users[0].Id;
 
-  if (_.has(options, 'seedUser')) { 
-    seedOptions.seedUser = options.seedUser; 
-  }
+      article.Votes[0].CreatedBy = insertedData.users[0].Id;
+      article.Votes[1].CreatedBy = insertedData.users[0].Id;
 
-  if (_.has(options, 'seedAdmin')) {
-    seedOptions.seedAdmin = options.seedAdmin;
-  }
+      article.Tags[0].Tag = insertedData.tags[0].Id;
+      article.Tags[1].Tag = insertedData.tags[1].Id;
 
-  var User = mongoose.model('User');
-  return new Promise(function (resolve, reject) {
+      article.Category = insertedData.categories[0].Id;
+      article.Series = insertedData.series[0].Id;
 
-    var adminAccount = new User(seedOptions.seedAdmin);
-    var userAccount = new User(seedOptions.seedUser);
+      article.History.CreatedBy = insertedData.users[0].Id;
+      article.History.UpdatedBy = insertedData.users[0].Id;
 
-    //If production only seed admin if it does not exist
-    if (process.env.NODE_ENV === 'production') {
-      User.generateRandomPassphrase()
-        .then(seedTheUser(adminAccount))
-        .then(function () {
-          resolve();
-        })
-        .catch(reportError(reject));
-    } else {
-      // Add both Admin and User account
-
-      User.generateRandomPassphrase()
-        .then(seedTheUser(userAccount))
-        .then(User.generateRandomPassphrase)
-        .then(seedTheUser(adminAccount))
-        .then(function () {
-          resolve();
-        })
-        .catch(reportError(reject));
-    }
-  });
+      let articleObj = new Article(article);
+      return articleObj.save()
+        .then(article => insertedData.articles.push(article))
+        .catch(err => console.log(err));
+    });
+    return Q.all(insertArticlePromises);
+  })
+  .done();
+  
 };

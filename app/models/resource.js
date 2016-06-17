@@ -1,19 +1,19 @@
 var mongoose = require("mongoose");
 
-var ResourceSchema = new mongoose.Schema({
+var ResourceSchema = mongoose.Schema({
 	Id: {
 		type: mongoose.Schema.Types.ObjectId,
 		index: true
 	},
-	ResourceCode: {
+	Code: {
 		type: String,
 		index: true
 	},
-	ResourceValue: {
+	Value: {
 		type: String,
 		index: true
 	},
-	ResourceType: {
+	Type: {
 		type: String,
 		index: true,
 		default: 'String'

@@ -20,7 +20,7 @@
 //   'angular-carousel'
 // ]);
 
-var app = angular.module('hellocodeApp', [
+var app = angular.module('hellocoderApp', [
   'ui.router',
   'ui.bootstrap',
   'angular-jwt',
@@ -58,7 +58,7 @@ app.config(function ( $urlRouterProvider, jwtInterceptorProvider, $httpProvider,
   $httpProvider.interceptors.push('authInterceptor');
 });
 
-app.run(function($rootScope, $location, $state, $modalStack, jwtHelper, tokenService, $loading, CONSTANTS) {
+app.run(function($rootScope, $location, $state, $uibModalStack, jwtHelper, tokenService, $loading, CONSTANTS) {
   $rootScope.CONSTANTS= CONSTANTS;
   $rootScope.Util= Util;
   $rootScope.preference = {
@@ -98,7 +98,7 @@ app.run(function($rootScope, $location, $state, $modalStack, jwtHelper, tokenSer
     // save the fromState and fromParams to $rootScope for use in some scenarios (e.g. logout).
     $rootScope.fromState = fromState;
     $rootScope.fromParams = fromParams;
-    $modalStack.dismissAll();
+    $uibModalStack.dismissAll();
   });
 
   $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {

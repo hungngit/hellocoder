@@ -56,9 +56,9 @@ module.exports = {
     allJS: [
       'server.js', 
       'config/**/*.js', 
-      'modules/*/server/**/*.js'
+      'app/models/**/*.js'
     ],
-    models: 'modules/*/server/models/**/*.js',
+    models: 'app/models/**/*.js',
     //routes: ['modules/!(core)/server/routes/**/*.js', 'modules/core/server/routes/**/*.js'],
     routes: ['app/routes/*.js'],
     services: ['app/service/*.js'],
@@ -66,6 +66,6 @@ module.exports = {
     sockets: 'modules/*/server/sockets/!strategies/*.js',
     config: ['app/config/*.js'],
     //policies: 'modules/*/server/policies/*.js',
-    views: ['modules/*/server/views/*.html']
+    views: ['app/*/server/views/*.html']
   }
 };

@@ -1,6 +1,6 @@
 var mongoose = require("mongoose");
 
-var ArticleStatusSchema = new mongoose.Schema({
+var ArticleStatusSchema = mongoose.Schema({
 	Id: {
 		type: mongoose.Schema.Types.ObjectId,
 		index: true

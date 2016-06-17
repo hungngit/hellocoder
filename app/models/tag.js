@@ -1,11 +1,11 @@
 var mongoose = require("mongoose");
 
-var TagSchema = new mongoose.Schema({
+var TagSchema = mongoose.Schema({
 	Id: {
 		type: mongoose.Schema.Types.ObjectId,
 		index: true
 	},
-	TagName: {
+	Name: {
 		type: String,
 		index: true
 	},

@@ -1,11 +1,11 @@
 var mongoose = require("mongoose");
 
-var UserStatusSchema = new mongoose.Schema({
+var UserStatusSchema = mongoose.Schema({
 	Id: {
 		type: mongoose.Schema.Types.ObjectId,
 		index: true
 	},
-	StatusName: {
+	Name: {
 		type: String,
 		index: true
 	},

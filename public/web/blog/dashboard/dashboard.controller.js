@@ -1,7 +1,7 @@
 'use strict';
 
-function DashboardCtrl($rootScope, $scope, $state, $modal, $loading, $http, RequestService, mainService) {
-    
+function DashboardCtrl($rootScope, $scope, $state, $uibModal, $loading, $http, RequestService, mainService) {
+    console.log(345);
     // Code Sample for Adding new constant value
     // var CONSTANTS = setScopeConstants();
     // function setScopeConstants() {
@@ -26,7 +26,6 @@ function DashboardCtrl($rootScope, $scope, $state, $modal, $loading, $http, Requ
     $scope.locationId = $state.params.locationId;
 
     $scope.posts = [];
-    $scope.reverse = false;
 
     //messages
     // if ($state.params.msg && $state.params.type) {
@@ -36,7 +35,7 @@ function DashboardCtrl($rootScope, $scope, $state, $modal, $loading, $http, Requ
     //     }];
     // }
 
-    // fỏ pagination
+    // for pagination
     $scope.fromDate = moment();
 
     var init = function(){
@@ -48,15 +47,16 @@ function DashboardCtrl($rootScope, $scope, $state, $modal, $loading, $http, Requ
     } 
         
     $scope.getData = function () {
-        $scope.loading = true;
-        return $http.get($rootScope.servicePrefix + '/courier/list', {
+        $scope.loading = true;        
+        return RequestService.get('/articles/paginationnext', {
             params: {
-                "cc": $scope.languageCode
+                "fromDate": '2016-06-17T11:14:08.148Z',
+                "limit": 5
             }
         })
         .then(function (result) {
-            $scope.items = result.data;
-            console.log($scope.items);
+            $scope.posts = result.data;
+            console.log($scope.posts);
         }, function () {
             $scope.messages = [
                 {msg: $scope.t.MSG_ERR_ADMIN_GENERAL_ERR, type: 'danger'}
@@ -66,6 +66,8 @@ function DashboardCtrl($rootScope, $scope, $state, $modal, $loading, $http, Requ
             $scope.loading = false;
         });
     };
+
+    init();
 }
 
-app.controller('DashboardCtrl', ['$rootScope', '$scope', '$state', '$modal', '$loading', '$http', 'RequestService', 'mainService', DashboardCtrl]);
+app.controller('DashboardCtrl', ['$rootScope', '$scope', '$state', '$uibModal', '$loading', '$http', 'RequestService', 'mainService', DashboardCtrl]);

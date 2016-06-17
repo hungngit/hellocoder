@@ -1,6 +1,6 @@
 var mongoose = require("mongoose");
 
-var ArticleSchema = new mongoose.Schema({
+var ArticleSchema = mongoose.Schema({
 	Id: {
 		type: mongoose.Schema.Types.ObjectId,
 		index: true
@@ -16,13 +16,13 @@ var ArticleSchema = new mongoose.Schema({
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'ArticleStatus'
 		},
-    CreatedBy: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    }
+	    CreatedBy: {
+	        type: mongoose.Schema.Types.ObjectId,
+	        ref: 'User'
+	    }
 	},
 	Comments: [{
-        text: String,
+        Content: String,
         CreatedBy: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User'
@@ -61,7 +61,8 @@ var ArticleSchema = new mongoose.Schema({
 		},
 		CreatedDate: {
 			type: Date,
-			index: true
+			index: true,
+			default: Date.now()
 		},
 		UpdatedBy: {
 			type: mongoose.Schema.Types.ObjectId,
@@ -69,7 +70,8 @@ var ArticleSchema = new mongoose.Schema({
 		},
 		UpdatedDate: {
 			type: Date,
-			index: true
+			index: true,
+			default: Date.now()
 		}
 	},
 	IsDeleted: {

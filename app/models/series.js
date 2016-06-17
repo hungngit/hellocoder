@@ -1,11 +1,11 @@
 var mongoose = require("mongoose");
 
-var SeriesSchema = new mongoose.Schema({
+var SeriesSchema = mongoose.Schema({
 	Id: {
 		type: mongoose.Schema.Types.ObjectId,
 		index: true
 	},
-	SeriesName: {
+	Name: {
 		type: String,
 		index: true
 	},
@@ -19,6 +19,6 @@ var SeriesSchema = new mongoose.Schema({
 	}
 });
 
-var Category = mongoose.model('Category', CategorySchema);
+var Series = mongoose.model('Series', SeriesSchema);
 
-module.exports = Category;
+module.exports = Series;
