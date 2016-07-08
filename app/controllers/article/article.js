@@ -7,7 +7,6 @@ var moment = require('moment'),
   path = require('path'),
   cu = require(path.resolve('./app/lib/commonutil')),
   errorHandler = require(path.resolve('./app/controllers/core/errors.server.controller')),
-  mongoose = require('mongoose'),
   articleService = require(path.resolve('./app/services/article'));
 
 /**

@@ -31,14 +31,17 @@ app.factory('MainService', ['$rootScope', '$http', '$filter', '$q',
 	    initialize: function(readonly) {
 	      if (!refData.ResourceMap) {
 	        var cultureCode = (sessionStorage.getItem('sessionLang') || 'EN');
-	        if ($rootScope.User && $rootScope.User.CultureCode)
-	          cultureCode = $rootScope.User.CultureCode;
-	      	var resourcePromise = RequestService.get('/reference/translation', {
+	        if ($rootScope.User && $rootScope.User.CultureCode){
+	        	cultureCode = $rootScope.User.CultureCode;	
+	        }
+	      	var resourcePromise = $http.get($rootScope.servicePrefix + '/resource/translation', {
 	            params: {
-	                cc: cultureCode
+	                cultureCode: cultureCode
 	            }
 	        }).then(function (result) {
-	        	var resourceMap = Util.buildResourceMap(response.data);
+	        	console.log('--- MainService ');
+	        	console.log(result);
+	        	var resourceMap = Util.convertArrayToKeyValue(result.data.data, 'Code', 'Value');
 	        	if(readonly){
 		          	return {
 		          		ResourceMap: resourceMap
@@ -48,44 +51,14 @@ app.factory('MainService', ['$rootScope', '$http', '$filter', '$q',
 		        }
 	            $rootScope.ResourceMap = resourceMap;
 	            return refData;
-	        }, function (errObj, status, headers, config) {
-	            $scope.messages = [{
-	                msg: 'Invalid Data',
-	                type: CONSTANTS.MESSAGE_TYPE.ERROR
-	            }];
+	        })
+	        .catch(function (errObj, status, headers, config) {
+	        	console.log(errObj);
 	        });
 	        return resourcePromise;
 	      }
 	      else {
-	   //      if ($rootScope.menus === undefined || $rootScope.menus === null) {
-	   //        //initiate menu array
-	   //        var t = refData.UserReference.TranslationMap;
-				// $rootScope.ResourceMap = t;
-
-				// $rootScope.menus = {
-				// 	home: t.LB_HOME,
-				// 	merchant: t.LB_MERCHANT,
-				// 	products: t.LB_PRODUCT_LIST,
-				// 	brand: t.LB_AC_BRAND,
-				// 	category: t.LB_AC_CATEGORY,
-				// 	order: t.LB_ORDERS,
-				// 	user: t.LB_USER,
-				// 	posts: t.LB_MC_POST,
-				// 	consumer: t.LB_AC_CUSTOMERS_MENU,
-				// 	logout: t.LB_TL_LOGOUT,
-				// 	inventoryLocation: t.LB_INVENTORY_LOCATION,
-				// 	editprofile: t.LB_USER_EDIT_MY_PROFILE,
-				// 	orderSetting: t.LB_SETTINGS,
-				// 	content: t.LB_CONTENT
-				// };
-				// //init the footer policies text
-				// $rootScope.policies = {
-				// 	privacy:t.LB_PRIVACY_POLICY,
-				// 	cookie: t.LB_COOKIE_POLICY,
-				// 	copyright: t.LB_COPYRIGHT_POLICY
-				// };
-	   //      }
-	   		$rootScope.ResourceMap = resourceMap;
+	   		$rootScope.ResourceMap = refData.resourceMap;
 	        return refData;
 	      }
 	    }

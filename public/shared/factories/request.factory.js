@@ -7,8 +7,7 @@
  * @constructor
  */
 function RequestService($http, $q, $rootScope) {
-    var servicePrefix = $rootScope.servicePrefix;
-
+    var servicePrefix = $rootScope.servicePrefix || '/api';
     return {
         makePromise: function (context) {
             var deferred = $q.defer();

@@ -10,27 +10,7 @@
 		<title>Kipalog</title>
 		<link href="themes/default/images/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon"> 
 		<!-- GA -->	
-		<link rel="stylesheet" type="text/css" href="themes/default/css/index.css" media="all">
-		<script src="lib/jquery/dist/jquery.js"></script>
-		<script src="lib/angular/angular.js"></script>
-		<script src="lib/angular-ui-router/release/angular-ui-router.js"></script>
-    	<script src="lib/angular-jwt/angular-jwt-patched.js"></script>
-	    <script src="lib/angular-loading/spin.min.js"></script>
-    	<script src="lib/angular-loading/angular-loading.min.js"></script>
-    	<script src="lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-	    <script src="lib/utils/util.js"></script>
-	    <script src="lib/utils/base64.js"></script>
-    	<script src="lib/moment/min/moment.min.js"></script>
-
-    	<script src="lib/lodash/dist/lodash.js"></script>
-
-    	<script src="web/blog/app.js"></script>
-    	<script src="web/blog/routes.js"></script>
-	    <script src="shared/factories/common.js"></script>
-	    <script src="shared/factories/constant.factory.js"></script>
-	    <script src="shared/factories/request.factory.js"></script>
-    	
-    	<script src="web/blog/dashboard/dashboard.controller.js"></script>
+		<link rel="stylesheet" type="text/css" href="themes/default/css/index.css" media="all">		
 	</head>
 	<body>
 		<!-- ng-controller="HeaderController" -->
@@ -79,7 +59,33 @@
 		<!-- Footer -->
 		<footer class="master-footer ui page grid" ng-include="'/web/blog/shared/views/_footer.html'" >
 		</footer>
+
+		<script src="lib/jquery/dist/jquery.js"></script>
+		<script src="lib/angular/angular.js"></script>
+		<script src="lib/angular-ui-router/release/angular-ui-router.js"></script>
+    	<script src="lib/angular-jwt/angular-jwt-patched.js"></script>
+	    <script src="lib/angular-loading/spin.min.js"></script>
+    	<script src="lib/angular-loading/angular-loading.min.js"></script>
+    	<script src="lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+	    <script src="lib/utils/util.js"></script>
+	    <script src="lib/utils/base64.js"></script>
+    	<script src="lib/moment/min/moment.min.js"></script>
+
+    	<script src="lib/lodash/dist/lodash.js"></script>
+
+    	<script src="web/blog/app.js"></script>
+    	<script src="web/blog/routes.js"></script>
+    	
+	    <script src="shared/factories/common.js"></script>
+    	    	
+    	<script src="web/blog/modules/dashboard/dashboard.controller.js"></script>
+
+
+	    <script src="shared/factories/constant.factory.js"></script>
+	    <script src="shared/factories/request.factory.js"></script>
+
 		<script>
+			angular.bootstrap('body', ['hellocoderApp']);
 	        jQuery(document).ready(function () {
 	            //Metronic.init(); // init metronic core componets
 	            //Layout.init(); // init layout
@@ -94,10 +100,10 @@
 	             Index.initMiniCharts();
 	             Tasks.initDashboardWidget();
 	             */
-	            var initInjector = angular.injector(['ng']);
-	            var $http = initInjector.get('$http');
-	            var $q = initInjector.get('$q');
-	            var cc = (sessionStorage.getItem('sessionLang') || 'EN');
+	            // var initInjector = angular.injector(['ng']);
+	            // var $http = initInjector.get('$http');
+	            // var $q = initInjector.get('$q');
+	            // var cc = (sessionStorage.getItem('sessionLang') || 'EN');
 	            // var generalData = $http.get("/api/reference/general?cc=" + cc);
 	            // var translationData = $http.get("/api/reference/translation?cc=" + cc);
 
@@ -112,15 +118,15 @@
 
 	            //sessionStorage.setItem('generalData', JSON.stringify(response[0].data));
                 //sessionStorage.setItem('translationData', JSON.stringify(response[1].data));
-                angular.bootstrap('body', ['hellocoderApp']);
+                //angular.bootstrap('body', ['hellocoderApp']);
 
-	            if (Util.isIE()) {
-	                webshims.setOptions('forms-ext', {
-	                    replaceUI: 'auto',
-	                    types: 'number'
-	                });
-	                webshims.polyfill('forms forms-ext');
-	            }
+	            // if (Util.isIE()) {
+	            //     webshims.setOptions('forms-ext', {
+	            //         replaceUI: 'auto',
+	            //         types: 'number'
+	            //     });
+	            //     webshims.polyfill('forms forms-ext');
+	            // }
 	        });
 	    </script>
 	</body>

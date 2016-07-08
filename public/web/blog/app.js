@@ -31,7 +31,7 @@ app.constant("Constants", {
   "MAX_LOGIN_ATTEMPTS_COUNT": 3
 });
 
-app.config(function ( $urlRouterProvider, jwtInterceptorProvider, $httpProvider, $locationProvider) {
+app.config(function ($urlRouterProvider, jwtInterceptorProvider, $httpProvider, $locationProvider) {
   $urlRouterProvider.otherwise('/404');
 
   // Please note we're annotating the function so that the $injector works when the file is minified
@@ -64,7 +64,7 @@ app.run(function($rootScope, $location, $state, $uibModalStack, jwtHelper, token
   $rootScope.preference = {
     lang: 'VI'
   };
-
+    
   $rootScope.servicePrefix = '/api';
   $rootScope.saveUserData = tokenService.saveUserData;
   $rootScope.tokenSave = tokenService.tokenSave;

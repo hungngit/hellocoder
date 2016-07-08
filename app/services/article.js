@@ -4,7 +4,6 @@ var mongoose = require('mongoose'),
 var articleService = {};
 
 articleService.getListFromDateAndStatus = function (fromDate, statusId, limit) {
-	console.log(fromDate);
 	return Article
 			.where('History.CreatedDate').gte(fromDate)
 			//.where('Status.Id').equals(statusId)

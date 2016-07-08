@@ -21,6 +21,7 @@ exports.createJsonResult = function (res, userResult) {
 }
 
 exports.createSuccessJsonResult = function (res, data) {
+    console.log(data);
     return exports.createJsonResult(res, {
         success: true,
         data: data,
